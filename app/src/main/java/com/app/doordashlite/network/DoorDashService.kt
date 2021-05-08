@@ -15,5 +15,5 @@ private val retrofit: Retrofit = Retrofit.Builder()
     .build()
 
 object DoorDashApi {
-    val retrofitService: RestaurantService by lazy { retrofit.create(RestaurantService::class.java) }
+    val restaurantService: RestaurantService by lazy { retrofit.create(RestaurantService::class.java) }
 }
