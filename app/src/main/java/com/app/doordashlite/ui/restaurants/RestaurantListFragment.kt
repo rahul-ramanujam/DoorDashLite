@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.app.doordashlite.R
-import com.app.doordashlite.utils.Resource
+import com.app.doordashlite.utils.Result
 import kotlinx.android.synthetic.main.fragment_restaurant_list.*
 
 /**
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_restaurant_list.*
  */
 class RestaurantListFragment : Fragment() {
 
-    private val viewModel:RestaurantViewModel by viewModels()
+    private val viewModel: RestaurantViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,18 +30,24 @@ class RestaurantListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.response.observe(viewLifecycleOwner, {
-            when(it.status) {
-                Resource.Status.LOADING -> progressBar.visibility = View.VISIBLE
-                Resource.Status.SUCCESS -> {
+            when (it.status) {
+                Result.Status.LOADING -> progressBar.visibility = View.VISIBLE
+                Result.Status.SUCCESS -> {
                     it.data?.let { stores ->
                         progressBar.visibility = View.GONE
-                        restaurantList.visibility =View.VISIBLE
+                        restaurantList.visibility = View.VISIBLE
                         restaurantList.adapter = RestaurantAdapter(stores)
                     }
                 }
-                Resource.Status.ERROR -> Toast.makeText(context, "Error!", Toast.LENGTH_LONG).show()
+                Result.Status.ERROR -> {
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                    progressBar.visibility = View.GONE
+                    activity?.finish()
+                }
+
             }
 
         })
+        viewModel.getRestaurants(37.422740, -122.139956)
     }
 }

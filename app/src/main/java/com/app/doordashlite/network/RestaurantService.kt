@@ -13,7 +13,7 @@ interface RestaurantService {
         @Query(value = "lat") lat: Double,
         @Query(value = "lng") lng: Double,
         @Query(value = "offset") offset: Int = 0,
-        @Query(value = "limit") limit: Int = 20
+        @Query(value = "limit") limit: Int = 50
     ): FeedResponse
 
     @GET("v2/restaurant/{id}")

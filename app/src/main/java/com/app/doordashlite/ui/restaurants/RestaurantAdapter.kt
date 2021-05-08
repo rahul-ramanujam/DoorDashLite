@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.doordashlite.R
 import com.app.doordashlite.data.Store
-import com.app.doordashlite.utils.Utils
 import com.bumptech.glide.Glide
 
 class RestaurantAdapter(private val restaurantList: List<Store>) :
@@ -29,12 +28,12 @@ class RestaurantAdapter(private val restaurantList: List<Store>) :
         holder.restaurantName.text = store.name
         holder.description.text = store.description
 
-        if(Utils.isPastClosingHours(store.closeTime)) {
+        if(store.status.range_minutes.isEmpty()) {
+            holder.deliveryTime.text = context.resources.getString(R.string.closed)
+        } else {
             store.status.range_minutes.first().let {
                 holder.deliveryTime.text = context.resources.getString(R.string.delivery_time, it)
             }
-        } else {
-            holder.deliveryTime.text = context.resources.getString(R.string.closed)
         }
 
         Glide.with(context)
