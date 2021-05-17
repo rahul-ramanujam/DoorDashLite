@@ -1,5 +1,7 @@
 package com.app.doordashlite.ui.restaurants
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +21,9 @@ import kotlinx.android.synthetic.main.fragment_restaurant_list.*
 class RestaurantListFragment : Fragment() {
 
     private val viewModel: RestaurantViewModel by viewModels()
+    private val sharedPreferences:SharedPreferences? by lazy {
+        activity?.getPreferences(Context.MODE_PRIVATE)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +41,7 @@ class RestaurantListFragment : Fragment() {
                     it.data?.let { stores ->
                         progressBar.visibility = View.GONE
                         restaurantList.visibility = View.VISIBLE
-                        restaurantList.adapter = RestaurantAdapter(stores)
+                        restaurantList.adapter = RestaurantAdapter(stores, sharedPreferences)
                     }
                 }
                 Result.Status.ERROR -> {

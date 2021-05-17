@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">DoorDashLite</string>
     <string name="discover">Discover</string>
+    <string name="like">Like</string>
+    <string name="liked">Liked</string>
     <string name="delivery_time">%1$d minutes</string>
     <string name="closed">closed</string>
 </resources>

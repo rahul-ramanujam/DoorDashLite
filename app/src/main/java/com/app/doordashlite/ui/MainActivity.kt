@@ -15,4 +15,12 @@ class MainActivity : AppCompatActivity() {
             )
             .commit()
     }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
 }
